@@ -1,5 +1,7 @@
 import abc
-from littlenn.activation_functions import ReLU, Sigmoid, Linear
+from littlenn.activation_functions.relu import ReLU
+from littlenn.activation_functions.sigmoid import Sigmoid
+from littlenn.activation_functions.linear import Linear
 
 class Layer(abc.ABC):
     def __init__(self):
@@ -7,7 +9,7 @@ class Layer(abc.ABC):
                             "linear" : Linear(), "None" : Linear()}
     
     @abc.abstractmethod  
-    def _create_weights(self):
+    def _create_weights(self, dim_in):
         pass
 
     @abc.abstractmethod

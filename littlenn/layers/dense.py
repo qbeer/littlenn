@@ -1,9 +1,9 @@
 import numpy as np
-from abstract_layer import Layer
+from littlenn.layers.abstract_layer import Layer
 
 class Dense(Layer):
     def __init__(self, dim_out, activation=None):
-        #super(DenseBlock, self).__init__()
+        super(Dense, self).__init__()
         self.dim_out = dim_out
         self.act_fn = self.activations[activation]
 
@@ -26,7 +26,7 @@ class Dense(Layer):
         return self.act_fn(self.act)
 
     def grads(self, dprev):
-        act_deriv = self.act_fn.backprop(self.act)
+        act_deriv = self.act_fn.derivative(self.act)
         dW = np.matmul(dprev * act_deriv, self.z_prev.T)
         db = np.mean(dprev * act_deriv, keepdims=True)
         dprev_new =  np.matmul(self.W.T, dprev * act_deriv)

@@ -7,7 +7,7 @@ class Sequential:
         self.__current_input_size = input_size
 
     def add(self, layer):
-        layer.create_weights(self.__current_input_size)
+        layer._create_weights(self.__current_input_size)
         self.layers.append(layer)
         self.__current_input_size = layer.dim_out
 

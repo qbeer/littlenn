@@ -6,7 +6,7 @@ from littlenn.activation_functions.linear import Linear
 class Layer(abc.ABC):
     def __init__(self):
         self.activations = {"relu" : ReLU(), "sigmoid" : Sigmoid(),
-                            "linear" : Linear(), "None" : Linear()}
+                            "linear" : Linear(), None : Linear()}
     
     @abc.abstractmethod  
     def _create_weights(self, dim_in):

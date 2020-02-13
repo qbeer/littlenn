@@ -1,10 +1,10 @@
 from littlenn.model import Sequential
 from littlenn.layers import Dense, Dropout
 import numpy as np
-from sklearn.datasets import make_classification, load_breast_cancer
+from sklearn.datasets import make_classification
 
 X, y = make_classification(1000, 30, 27, 1, random_state=42)
-#X, y = load_breast_cancer(return_X_y=True)
+
 X /= np.max(X)
 N = X.shape[1]
 T = int(X.shape[0] * 0.9)
@@ -12,10 +12,10 @@ T = int(X.shape[0] * 0.9)
 model = Sequential(input_size=N)
 model.add(Dense(128, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dropout(keep_prob=0.8))
+model.add(Dropout(keep_prob=0.9))
 model.add(Dense(64, activation='relu'))
 model.add(Dense(32, activation='relu'))
-model.add(Dropout(keep_prob=0.8))
+model.add(Dropout(keep_prob=0.9))
 model.add(Dense(1, activation='sigmoid'))
 
 def binary_loss(y_true, y_pred):
@@ -46,7 +46,6 @@ for epoch in range(epochs):
     for batch, batch_labels in batch_generator(X, y, batch_size):
         ind += 1
         y_pred = model(batch)
-        #print(y_pred[:10])
         dprev = binary_loss_deriv(batch_labels, y_pred)
         loss = binary_loss(batch_labels, y_pred)
         model._backprop(dprev, lr)

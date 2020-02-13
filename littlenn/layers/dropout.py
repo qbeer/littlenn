@@ -24,8 +24,8 @@ class Dropout(Layer):
         return act
     
     def grads(self, grads):
-        dprev, _, _ = grads
-        return (self.W * dprev, None, None)
+        dprev, *z = grads
+        return self.W * dprev
 
     def _apply_grads(self, grads, lr):
         pass

@@ -17,7 +17,6 @@ class Sequential:
         return x
 
     def _backprop(self, grads, lr):
-        grads = (grads, None, None)
         for layer in self.layers[::-1]:
             grads = layer.grads(grads)
             layer._apply_grads(grads, lr)

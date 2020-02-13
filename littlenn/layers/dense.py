@@ -26,15 +26,15 @@ class Dense(Layer):
         return self.act_fn(self.act)
 
     def grads(self, grads):
-        dprev, _, _ = grads
+        dprev, *z = grads
         act_deriv = self.act_fn.derivative(self.act)
         dW = np.matmul(dprev * act_deriv, self.z_prev.T)
         db = np.mean(dprev * act_deriv, keepdims=True)
         dprev_new =  np.matmul(self.W.T, dprev * act_deriv)
-        return (dprev_new, dW, db)
+        return dprev_new, dW, db
 
     def _apply_grads(self, grads, lr):
-        _, dW, db = grads
+        *_, dW, db = grads
         self.W -= lr * dW
         self.b -= lr * db
 

@@ -1,4 +1,5 @@
 from .abstract_activation import ActivationFunction
+import numpy as np
 
 class Sigmoid(ActivationFunction):
     def __init__(self):

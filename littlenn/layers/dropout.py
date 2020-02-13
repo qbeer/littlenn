@@ -7,10 +7,7 @@ class Dropout(Layer):
         self.keep_prob = keep_prob
 
     def _create_weights(self, dim_in):
-        self.dim_in = dim_in
         self.dim_out = dim_in
-
-        self.W = np.random.randn(self.dim_out, self.dim_in) < self.keep_prob
 
     def _get_weights(self):
         return self.W.reshape(-1, 1)
@@ -18,11 +15,17 @@ class Dropout(Layer):
     def _get_trainable_params(self):
         return 0
 
-    def __call__(self, x):
-        return self.W @ x
+    def __call__(self, x, training):
+        if training:
+            self.W = (np.random.rand(x.shape[0], x.shape[1]) <= self.keep_prob) / self.keep_prob
+            act = self.W * x
+        else:
+            act = x
+        return act
     
-    def grads(self, dprev):
-        return self.W.T @ dprev
+    def grads(self, grads):
+        dprev, _, _ = grads
+        return (self.W * dprev, None, None)
 
     def _apply_grads(self, grads, lr):
         pass

@@ -1,4 +1,5 @@
 from littlenn.activation_functions.abstract_activation import ActivationFunction
+import numpy as np
 
 class ReLU(ActivationFunction):
     def __call__(self, x):

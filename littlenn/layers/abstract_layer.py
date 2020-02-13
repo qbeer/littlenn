@@ -21,7 +21,7 @@ class Layer(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def __call__(self, x):
+    def __call__(self, x, training):
         pass
 
     @abc.abstractmethod

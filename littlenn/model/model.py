@@ -11,12 +11,13 @@ class Sequential:
         self.layers.append(layer)
         self.__current_input_size = layer.dim_out
 
-    def __call__(self, x):
+    def __call__(self, x, training=True):
         for layer in self.layers:
-            x = layer(x)         
+            x = layer(x, training)         
         return x
 
     def _backprop(self, grads, lr):
+        grads = (grads, None, None)
         for layer in self.layers[::-1]:
             grads = layer.grads(grads)
             layer._apply_grads(grads, lr)

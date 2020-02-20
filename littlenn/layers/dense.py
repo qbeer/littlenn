@@ -13,6 +13,10 @@ class Dense(Layer):
         self.W = np.random.randn(self.dim_out, dim_in) * np.sqrt(2 / (dim_in + self.dim_out))
         self.b = np.random.randn(self.dim_out, 1) * np.sqrt(1 / (self.dim_out))
 
+    def _init_optimizers(self, optimizer_factory, learning_rate, exponential_weight):
+        self.W_opt = optimizer_factory.create_instance(learning_rate, exponential_weight)
+        self.b_opt = optimizer_factory.create_instance(learning_rate, exponential_weight)
+
     def _get_weights(self):
         weights = np.concatenate((self.W.flatten(), self.b.flatten()), axis=None)
         return weights.reshape(-1, 1)
@@ -26,17 +30,17 @@ class Dense(Layer):
         return self.act_fn(self.act)
 
     def grads(self, grads):
-        dprev, *z = grads
+        dprev, *_ = grads
         act_deriv = self.act_fn.derivative(self.act)
         dW = np.matmul(dprev * act_deriv, self.z_prev.T)
         db = np.mean(dprev * act_deriv, keepdims=True)
         dprev_new =  np.matmul(self.W.T, dprev * act_deriv)
         return dprev_new, dW, db
 
-    def _apply_grads(self, grads, lr):
+    def _apply_grads(self, grads):
         *_, dW, db = grads
-        self.W -= lr * dW
-        self.b -= lr * db
+        self.W = self.W_opt(self.W, dW)
+        self.b = self.b_opt(self.b, db)
 
     def __str__(self):
         return "DenseBlock : (%s, %s)" % (self.W.shape[1], self.W.shape[0])

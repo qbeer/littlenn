@@ -13,6 +13,10 @@ class Layer(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def _init_optimizers(self, optimizer_factory, learning_rate, exponential_weight):
+        pass
+
+    @abc.abstractmethod
     def _get_weights(self):
         pass
 

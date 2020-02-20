@@ -9,7 +9,7 @@ X /= np.max(X)
 N = X.shape[1]
 T = int(X.shape[0] * 0.9)
 
-model = Sequential(input_size=N)
+model = Sequential(input_size=N, optimizer_params={"name" : "sgd", "lr" : 1e-3, "ew" : .99})
 model.add(Dense(128, activation='relu'))
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(keep_prob=0.9))
@@ -38,7 +38,6 @@ X, y = X[:T], y[:T]
 
 epochs = 500
 batch_size = 64
-lr = 1e-3
 
 for epoch in range(epochs):
     rolling_loss = 0.0
@@ -48,7 +47,7 @@ for epoch in range(epochs):
         y_pred = model(batch)
         dprev = binary_loss_deriv(batch_labels, y_pred)
         loss = binary_loss(batch_labels, y_pred)
-        model._backprop(dprev, lr)
+        model._backprop(dprev)
         rolling_loss += loss
     rolling_loss /= ind    
     if (epoch + 1) % 10 == 0:

@@ -9,6 +9,9 @@ class Dropout(Layer):
     def _create_weights(self, dim_in):
         self.dim_out = dim_in
 
+    def _init_optimizers(self, optimizer_factory, learning_rate, exponential_weight):
+        pass
+
     def _get_weights(self):
         return self.W.reshape(-1, 1)
 
@@ -27,7 +30,7 @@ class Dropout(Layer):
         dprev, *z = grads
         return self.W * dprev
 
-    def _apply_grads(self, grads, lr):
+    def _apply_grads(self, grads):
         pass
 
     def __str__(self):

@@ -9,7 +9,7 @@ X /= np.max(X)
 N = X.shape[1]
 T = int(X.shape[0] * 0.9)
 
-model = Sequential(input_size=N, optimizer_params={"name" : "sgd", "lr" : 1e-3, "ew" : .99})
+model = Sequential(input_size=N, optimizer_params={"name" : "rmsprop", "lr" : 1e-3, "ew" : .9})
 model.add(Dense(128, activation='relu'))
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(keep_prob=0.9))

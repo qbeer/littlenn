@@ -1,7 +1,7 @@
 import numpy as np
 
 class SGD:
-    def __init__(self, learning_rate=1e-3, exponential_weight=None):
+    def __init__(self, learning_rate, exponential_weight):
         self.learning_rate = learning_rate
         self.exponential_weight = 1.
         if exponential_weight != None:

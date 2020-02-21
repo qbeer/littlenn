@@ -7,13 +7,12 @@ class Sequential(Model):
         self.layers = []
         self.input_size = input_size
         self.__current_input_size = input_size
-        self.learning_rate = optimizer_params['lr']
-        self.exponential_weight = optimizer_params['ew']
+        self.optimizer_params = optimizer_params
         self.optimizer_factory = self.optimizers[optimizer_params['name']]
 
     def add(self, layer):
         layer._create_weights(self.__current_input_size)
-        layer._init_optimizers(self.optimizer_factory, self.learning_rate, self.exponential_weight)
+        layer._init_optimizers(self.optimizer_factory, self.optimizer_params)
 
         self.layers.append(layer)
         self.__current_input_size = layer.dim_out

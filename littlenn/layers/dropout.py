@@ -9,7 +9,7 @@ class Dropout(Layer):
     def _create_weights(self, dim_in):
         self.dim_out = dim_in
 
-    def _init_optimizers(self, optimizer_factory, learning_rate, exponential_weight):
+    def _init_optimizers(self, optimizer_factory, params):
         pass
 
     def _get_weights(self):

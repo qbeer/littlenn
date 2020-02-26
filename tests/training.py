@@ -10,6 +10,7 @@ N = X.shape[1]
 T = int(X.shape[0] * 0.95)
 
 model = Sequential(input_size=N)
+
 model.add(Dense(128, activation='relu'))
 model.add(BatchNorm(activation='relu'))
 model.add(Dense(256, activation='relu'))

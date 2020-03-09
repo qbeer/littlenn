@@ -14,6 +14,6 @@ assert weights.size == SIZE, 'Weight should be equal to init params.'
 
 x = np.random.randn(100, 10) # a mini-batch of inputs
 
-y = dense(x)
+y = dense(x, True)
 
 assert y.shape == (10, 10), 'Shape must be equal to expected output shape'

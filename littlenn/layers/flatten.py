@@ -6,7 +6,7 @@ class Flatten(Layer):
         super(Flatten, self).__init__()
 
     def _create_weights(self, dim_in):
-        pass
+        self.dim_out = np.prod(dim_in)
 
     def _init_optimizers(self, optimizer_factory, params):
         pass
@@ -23,6 +23,7 @@ class Flatten(Layer):
 
     def grads(self, grads):
         prev_derivative, *_ = grads
+        print('dlatten reshpae :', self.previous_shape)
         return prev_derivative.reshape(self.previous_shape), None, None
 
     def _apply_grads(self, grads):

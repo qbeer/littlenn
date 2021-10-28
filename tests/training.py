@@ -3,7 +3,7 @@ from littlenn.layers import Dense, Dropout, BatchNorm
 import numpy as np
 from sklearn.datasets import make_classification
 
-X, y = make_classification(1000, 30, 27, 1, random_state=42)
+X, y = make_classification(1000, 30, random_state=42)
 
 X /= np.max(X)
 N = X.shape[1]

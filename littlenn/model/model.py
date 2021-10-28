@@ -23,8 +23,9 @@ class Sequential(Model):
         for layer in self.layers[::-1]:
             grads = layer.grads(grads)
             try:
-                print('Layer :', layer.dim_in, layer.dim_out)
-                print("Grads :", grads[0].shape, grads[1].shape, grads[2].shape)
+                #print('Layer :', layer.dim_in, layer.dim_out)
+                #print("Grads :", grads[0].shape, grads[1].shape, grads[2].shape)
+                pass
             except Exception:
                 pass
             layer._apply_grads(grads)
